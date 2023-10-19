@@ -34,7 +34,8 @@ export function CopyToClipboard({
           title: `Copying ${field}...`,
         });
         try {
-          const stdout = execFileSync(CLI_PATH!, ["read", `op://${vault_id}/${id}/${field}`]);
+          const args = field === "otp" ? ["item", "get", id, "--vault", vault_id, "--otp"] : ["read", `op://${vault_id}/${id}/${field}`];
+          const stdout = execFileSync(CLI_PATH!, args);
           await Clipboard.copy(stdout.toString().trim(), { concealed: true });
 
           toast.style = Toast.Style.Success;

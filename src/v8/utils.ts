@@ -28,7 +28,7 @@ export function hrefToOpenInBrowser(item: Item): string | undefined {
 
 export function actionsForItem(item: Item): ActionID[] {
   // all actions in the default order
-  const defaultActions: ActionID[] = ["open-in-1password", "open-in-browser", "copy-username", "copy-password"];
+  const defaultActions: ActionID[] = ["copy-username", "copy-password", "copy-one-time-password", "open-in-1password", "open-in-browser"];
   // prioritize primary and secondary actions, then append the rest and remove duplicates
   const deduplicatedActions = [
     ...new Set<ActionID>([preferences.primaryAction, preferences.secondaryAction, ...defaultActions]),
@@ -144,5 +144,6 @@ export function getCategoryIcon(category: CategoryName) {
 
 export function titleCaseWord(word: string) {
   if (!word) return word;
+  if (word === "otp") return "One-Time Password";
   return word[0].toUpperCase() + word.substr(1).toLowerCase();
 }
